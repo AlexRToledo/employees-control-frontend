@@ -1,0 +1,44 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+@media screen and (max-width: 640px) {
+  #register {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .content-wrapper:first-child {
+    padding-right: 40px;
+  }
+  .calendar {
+    .body {
+      .cell {
+        height: 7rem!important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .content-wrapper:first-child {
+    padding-right: 10px;
+    padding-left: 20px;
+  }
+  .calendar {
+    .body {
+      .cell {
+        height: 5rem!important;
+      }
+    }
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+.uk-icon-button:hover {
+  cursor: pointer;
+}

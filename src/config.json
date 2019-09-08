@@ -1,0 +1,7 @@
+{
+  "mode": "dev",
+  "dev": {
+    "api": "http://localhost:3001/api/v1",
+    "static": "http://localhost:3001/"
+  }
+}
