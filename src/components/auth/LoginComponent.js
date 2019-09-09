@@ -2,11 +2,15 @@ import React from 'react';
 import {
     Link
 } from "react-router-dom";
+import { connect } from 'react-redux';
+
+import { LOGIN } from '../../store/actions/user.actions';
+
 import AuthService from '../../services/auth/AuthService';
 import Storage from '../../helpers/Storage';
 import IComponent from '../../core/IComponent/IComponent';
 
-class LoginComponent extends IComponent{
+class LoginComponent extends IComponent {
     constructor(props) {
         super(props);
         this.service = new AuthService();
@@ -24,10 +28,12 @@ class LoginComponent extends IComponent{
             e.preventDefault();
             if(e.target.checkValidity()) {
                 const res = await this.service.Login({email: this.state.email, password: this.state.password});
-                if(res && !res.error) {
-                    this.store.SetToken(res.data.token);
-                    this.store.SetUser(res.data.user);
-                    this.store.SetExpire();
+                if(res && !res.error) {                    
+                    const { dispatch } = this.props;
+                    dispatch(LOGIN({
+                        token: res.data.token,
+                        user: res.data.user,
+                    }));
                     this.notify('Bienvenido');
                     this.props.history.push('/cases');
                 } else {
@@ -66,4 +72,4 @@ class LoginComponent extends IComponent{
     }
 }
 
-export default LoginComponent;
+export default connect()(LoginComponent);

@@ -1,24 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Route, Redirect} from 'react-router-dom';
 import Storage from '../../helpers/Storage';
 const store = new Storage();
 
-class ProtectedRoutes extends React.Component{
-
-    AuthVerify() {
-        try {
-            const expire = new Date(Number(store.GetExpire('expire')));
-            const now = new Date();
-
-            if(store.GetToken() !== "" && store.GetUser() !== "" && expire > now) {
-                return true
-            }
-            return false;
-        } catch (err) {
-            return null;
-        }
+class ProtectedRoutes extends React.Component {
+    constructor(props) {
+        super(props);
     }
-
     componentDidMount() {
         store.SetRedirectRoute(this.props.location.pathname)
     }
@@ -30,7 +19,7 @@ class ProtectedRoutes extends React.Component{
             <Route
                 {...rest}
                 render={props=> {
-                    if (this.AuthVerify()) {
+                    if (this.props.auth) {
                         return <Component {...props}/>
                     } else {
                         return <Redirect to={{
@@ -46,4 +35,11 @@ class ProtectedRoutes extends React.Component{
     }
 }
 
-export default ProtectedRoutes;
+function mapStateToProps(state) {
+    const {auth} = state.auth
+    return {
+        auth
+    }
+}
+
+export default connect(mapStateToProps)(ProtectedRoutes);

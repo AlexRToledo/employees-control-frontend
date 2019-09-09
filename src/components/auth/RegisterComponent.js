@@ -14,13 +14,8 @@ class RegisterComponent extends IComponent{
         this.state = {
             password: '',
             passwordConfirm: '',
-            username: '',
-            userEmail: '',
-            email: '',
-            name: '',
-            address: '',
-            phone: '',
-            plan: '',
+            username: '',            
+            email: '',            
             typeNotify: false
         };
         this.onSubmit = this.onSubmit.bind(this);
@@ -58,38 +53,7 @@ class RegisterComponent extends IComponent{
                 </div>
                 <div className={'uk-width-1-1@s uk-width-1-3@m form-content'}>
                     <h2 className={'uk-text-center'}>Registro</h2>
-                    <form className={'uk-form-stacked'} onSubmit={this.onSubmit}>
-                        <fieldset className="uk-fieldset">
-                            <legend className="uk-legend">
-                                Empresa
-                            </legend>
-                            <div className={'uk-margin'}>
-                                <label className={'uk-form-label'}>Nombre</label>
-                                <div className={'uk-form-controls'}>
-                                    <input  id={'name'} className={'uk-input'} type='text' name="name" value={this.state.name} onChange={this.handleFields.bind(this)} required/>
-                                </div>
-                            </div>
-                            <div className={'uk-margin'}>
-                                <label className={'uk-form-label'}>Direccion</label>
-                                <div className={'uk-form-controls'}>
-                                    <input  id={'address'} className={'uk-input'} type='text' name="address" value={this.state.address} onChange={this.handleFields.bind(this)} required/>
-                                </div>
-                            </div>
-                            <div className={'uk-grid uk-margin'}>
-                                <div className={'uk-width-1-2@s'}>
-                                    <label className={'uk-form-label'}>Correo</label>
-                                    <div className={'uk-form-controls'}>
-                                        <input  id={'email'} className={'uk-input'} type='email' name="email" value={this.state.email} onChange={this.handleFields.bind(this)} required/>
-                                    </div>
-                                </div>
-                                <div className={'uk-width-1-2@s'}>
-                                    <label className={'uk-form-label'}>Telefono</label>
-                                    <div className={'uk-form-controls'}>
-                                        <input  id={'phone'} className={'uk-input'} type='tel' name="phone" value={this.state.phone} onChange={this.handleFields.bind(this)} required/>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
+                    <form className={'uk-form-stacked'} onSubmit={this.onSubmit}>                        
                         <fieldset className="uk-fieldset">
                             <legend className="uk-legend">
                                 Usuario
@@ -103,7 +67,7 @@ class RegisterComponent extends IComponent{
                             <div className={'uk-margin'}>
                                 <label className={'uk-form-label'}>Correo</label>
                                 <div className={'uk-form-controls'}>
-                                    <input  id={'userEmail'} className={'uk-input'} type='email' name="userEmail" value={this.state.userEmail} onChange={this.handleFields.bind(this)} required/>
+                                    <input  id={'email'} className={'uk-input'} type='email' name="email" value={this.state.email} onChange={this.handleFields.bind(this)} required/>
                                 </div>
                             </div>
                             <div className={'uk-grid uk-margin'}>
@@ -120,18 +84,7 @@ class RegisterComponent extends IComponent{
                                     </div>
                                 </div>
                             </div>
-                        </fieldset>
-                        <div className="uk-margin">
-                            <label className="uk-form-label" htmlFor="form-stacked-text">Plan</label>
-                            <div className="uk-form-controls">
-                                <select className="uk-select" id="form-stacked-select" name={'plan'} value={this.state.plan} onChange={this.handleFields.bind(this)} required>
-                                    <option value={''} disabled={true}>Seleccione</option>
-                                    <option key="1" value="SILVER">Plata</option>
-                                    <option key="2" value="GOLD">Oro</option>
-                                    <option key="3" value="DIAMOND">Diamante</option>
-                                </select>
-                            </div>
-                        </div>
+                        </fieldset>                        
                         <div className={'uk-margin-small-top uk-flex uk-flex-column uk-text-center'}>
                             <button className={'uk-button uk-button-primary'} type='submit'>Registrarse</button>
                             <Link className={'uk-margin-small-left uk-padding-small'} to="/login">Ya tengo cuenta</Link>

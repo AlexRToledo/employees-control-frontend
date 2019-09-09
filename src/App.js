@@ -12,7 +12,6 @@ import DashboardComponent  from './components/dashboard/MainComponent';
 import ProtectedRoutes from './core/routes/ProtectedRoutes';
 import PublicRoutes from './core/routes/PublicRoutes';
 import Storage from './helpers/Storage';
-import {ThemeContext} from './helpers/Context';
 
 import "react-datepicker/dist/react-datepicker.css";
 import 'uikit/dist/css/uikit.min.css';
@@ -24,20 +23,8 @@ class App extends Component {
     constructor() {
         super();
         this.store = new Storage();
-        this.state = {
-            auth: false,
-            typeNotify: false,
-            colors: {
-                top: this.store.GetColors().top,
-                tfont: this.store.GetColors().tfont,
-                side: this.store.GetColors().side,
-                sfont: this.store.GetColors().sfont
-            },
-            setColors: () => {
-                this.setState(({
-                    colors: this.store.GetColors()
-                }))
-            }
+        this.state = {            
+            typeNotify: false,        
         };
 
         this.changeType = this.changeType.bind(this);
@@ -52,17 +39,15 @@ class App extends Component {
   render() {
         return (
             <Router>
-                <ThemeContext.Provider value={this.state}>
-                    <main>
-                        <NotificationComponent typeNotify={this.state.typeNotify}/>
-                        <Switch>
-                            <Route path="/login" component={LoginComponent} />
-                            <PublicRoutes path="/register" component={RegisterComponent} />
-                            <ProtectedRoutes path="/dashboard" component={DashboardComponent} />
-                            <PublicRoutes path={'*'}/>
-                        </Switch>
-                    </main>
-                </ThemeContext.Provider>
+                <main>
+                    <NotificationComponent typeNotify={this.state.typeNotify}/>
+                    <Switch>
+                        <Route path="/login" component={LoginComponent} />
+                        <PublicRoutes path="/register" component={RegisterComponent} />
+                        <ProtectedRoutes path="/dashboard" component={DashboardComponent} />
+                        <PublicRoutes path={'*'}/>
+                    </Switch>
+                </main>
             </Router>
         );
   }
