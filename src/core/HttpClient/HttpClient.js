@@ -54,20 +54,7 @@ class HttpClient {
         } catch (e) {
             this.Close();
         }
-    }
-
-    async DataWithFile(url, data) {
-        try {
-            let formData = new FormData();
-            for (let index in data) {
-                formData.append(index, data[index]);
-            }
-            return this.Response(await this.Axios.post(this._apiUrl + url, data, {headers: this.Headers()}));
-        } catch (e) {
-            return null;
-        }
-
-    }
+    }    
 
     async Response (response) {
         try {
@@ -87,9 +74,8 @@ class HttpClient {
         }
     }
 
-    Close() {
-        storage.Logout();
-        return {error: true, message: 'Su cuenta se encuentra deshabilitada.'};
+    Close() {        
+        return {error: true, message: 'An error occurr.'};
     }
 }
 

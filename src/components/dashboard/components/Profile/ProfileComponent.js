@@ -1,19 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import IComponent from "../../../../core/IComponent/IComponent";
-import { CirclePicker } from 'react-color';
-import Storage from '../../../../helpers/Storage';
 
 class ProfileComponent extends IComponent {
     constructor() {
         super();
-        this.store = new Storage();
-        this.state = {
-
-        };
-        this.handleChangeTop = this.handleChangeTop.bind(this);
-        this.handleChangeSide = this.handleChangeSide.bind(this);
-        this.handleChangeTopFont = this.handleChangeTopFont.bind(this);
-        this.handleChangeSideFont = this.handleChangeSideFont.bind(this);
     }
 
     async componentDidMount() {
@@ -22,39 +13,15 @@ class ProfileComponent extends IComponent {
         } catch (err) {
             this.notify('Ha ocurrido un error.')
         }
-    }
-
-    handleChangeTop(color) {
-        let theme = this.store.GetColors();
-        theme.top = color.hex;
-        this.store.SetColor(theme);
-    }
-
-    handleChangeSide(color) {
-        let theme = this.store.GetColors();
-        theme.side = color.hex;
-        this.store.SetColor(theme);
-    }
-
-    handleChangeTopFont(color) {
-        let theme = this.store.GetColors();
-        theme.tfont = color.hex;
-        this.store.SetColor(theme);
-    }
-
-    handleChangeSideFont(color) {
-        let theme = this.store.GetColors();
-        theme.sfont = color.hex;
-        this.store.SetColor(theme);
-    }
+    }    
 
     render() {
         return (
             <div id={'profile'}>
-                <h1 className={'title'}>Perfil</h1>
+                <h1 className={'title'}>Profile</h1>
                 <div className={'uk-grid'}>
-                    <div className={'uk-width-1-1@m uk-margin-bottom'}>
-                        <h5>Plan Resumen</h5>                                
+                    <div className={'uk-width-1-1@m uk-margin-bottom'}>                    
+                        <h2>{this.props.user.email}</h2>                                
                     </div>                                                    
                 </div>
             </div>
@@ -62,4 +29,11 @@ class ProfileComponent extends IComponent {
     }
 }
 
-export default ProfileComponent;
+function mapStateToProps(state) {    
+    const {user} = state.auth
+    return {
+        user
+    }
+}
+
+export default connect(mapStateToProps)(ProfileComponent);

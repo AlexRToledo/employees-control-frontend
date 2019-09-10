@@ -70,10 +70,10 @@ class TableListComponent extends Component{
             <div className={'table-actions'}>
                 <ul className="uk-iconnav">
                     {this.props.onSetViewPage !== undefined &&
-                        <li key={1}><a href="#" uk-icon="icon: file-text" uk-tooltip="Ver" onClick={() => this.handlerView(element._id)}></a></li>
+                        <li key={1}><a href="#" className={'uk-icon-button'} uk-icon="icon: file-text" uk-tooltip="Ver" onClick={() => this.handlerView(element.id)}></a></li>
                     }
-                    <li key={2}><a href="#" uk-icon="icon: file-edit" uk-tooltip="Editar" onClick={() => this.handlerEdit(element._id)}></a></li>
-                    <li key={3}><a href="#" uk-icon="icon: trash" uk-tooltip="Elimiar" onClick={() => this.handlerRemove(element._id)}></a></li>
+                    <li key={2}><a href="#" className={'uk-icon-button'} uk-icon="icon: file-edit" uk-tooltip="Editar" onClick={() => this.handlerEdit(element.id)}></a></li>
+                    <li key={3}><a href="#" className={'uk-icon-button'} uk-icon="icon: trash" uk-tooltip="Elimiar" onClick={() => this.handlerRemove(element.id)}></a></li>
                 </ul>
             </div>
         )
@@ -86,10 +86,10 @@ class TableListComponent extends Component{
                 <div className={'uk-dropdown'} uk-dropdown="pos: right-center">
                     <ul className="uk-nav uk-dropdown-nav">
                         {this.props.onSetViewPage !== undefined &&
-                            <li><a href="#" onClick={() => this.handlerView(element._id)}><span className={'uk-icon'} uk-icon="file-text"></span> Ver</a></li>
+                            <li><a href="#" onClick={() => this.handlerView(element.id)}><span className={'uk-icon'} uk-icon="file-text"></span> View</a></li>
                         }
-                        <li><a href="#" onClick={() => this.handlerEdit(element._id)}><span className={'uk-icon'} uk-icon="file-edit"></span> Editar</a></li>
-                        <li><a href="#" onClick={() => this.handlerRemove(element._id)}><span className={'uk-icon'} uk-icon="trash"></span> Eliminar</a></li>
+                        <li><a href="#" onClick={() => this.handlerEdit(element.id)}><span className={'uk-icon'} uk-icon="file-edit"></span> Edit</a></li>
+                        <li><a href="#" onClick={() => this.handlerRemove(element.id)}><span className={'uk-icon'} uk-icon="trash"></span> Remove</a></li>
                     </ul>
                 </div>
             </div>

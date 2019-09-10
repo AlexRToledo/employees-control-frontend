@@ -18,7 +18,7 @@ class SearchFormComponent extends IComponent {
                     { this.props.title ? (
                         this.props.title
                     ) : (
-                        'Filtros de Busqueda'
+                        'Search Filters'
                     )}
                 </p>
                 <div className={'uk-margin-bottom'}>
@@ -26,7 +26,7 @@ class SearchFormComponent extends IComponent {
                         return  <div key={key} className="uk-margin">
                             {ele.options ? (
                                 <select className="uk-select" name={ele.field} onChange={this.handleFields.bind(this)}>
-                                    <option value={''} disabled={true} selected={true}>Seleccione</option>
+                                    <option value={''} disabled={true} selected={true}>Select</option>
                                     {Object.keys(ele.options).map((key, i) =>
                                         <option key={i} value={key}>{ele.options[key]} </option>
                                     )}
@@ -40,7 +40,7 @@ class SearchFormComponent extends IComponent {
                     })}
                 </div>
                 <ul className={'uk-iconnav'}>
-                    <li><a className={'uk-button uk-button-default'} onClick={() => this.handlerSearch()}><span uk-icon="icon: search"></span> Buscar</a></li>
+                    <li><a className={'uk-button uk-button-default'} onClick={() => this.handlerSearch()}><span uk-icon="icon: search"></span> Search</a></li>
                 </ul>
             </form>
         )

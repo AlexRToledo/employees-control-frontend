@@ -6,13 +6,14 @@ const now = new Date(),
   initialState = {
     auth: false,
     user: {},
+    users: [],
     redirect: ''
 };
 
 if(store.GetToken() !== "" && store.GetUser() !== "" && expire > now) {
     initialState.auth = true;
     initialState.user = store.GetUser();
-    initialState.user = store.GetRedirectRoute();
+    initialState.redirect = store.GetRedirectRoute();
 }
 
 export function auth(state = initialState, action) {
@@ -30,7 +31,7 @@ export function auth(state = initialState, action) {
         return {
           auth: false,
           user: {}
-        };  
+        };   
     default:
       return state
   }

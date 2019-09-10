@@ -41,18 +41,18 @@ class PaginationComponent extends IComponent{
                 { this.props.pages > 0 &&
                     <ul className={'uk-pagination uk-flex-center uk-margin'}>
                         { this.props.page === 1 ? (
-                            <li className={'uk-disabled'}><a href="#"><span className={"uk-margin-small-right uk-pagination-previous"}></span> Inicio</a></li>
+                            <li className={'uk-disabled'}><a href="#"><span className={"uk-margin-small-right uk-pagination-previous"}></span> Previous</a></li>
                         ) : (
-                            <li><a onClick={() => this.handlerSetPage(1)}><span className={"uk-margin-small-right uk-pagination-previous"}></span> Inicio</a></li>
+                            <li><a onClick={() => this.handlerSetPage(1)}><span className={"uk-margin-small-right uk-pagination-previous"}></span> Previous</a></li>
                         )}
                         { cut !== 1 &&
                           <li className={'uk-disabled'}><span>...</span></li>
                         }
                         {this.printPages(cut)}
                         { this.props.page === this.props.pages ? (
-                            <li className={'uk-disabled'}><a href="#">Final <span className={"uk-margin-small-left uk-pagination-next"}></span></a></li>
+                            <li className={'uk-disabled'}><a href="#">Next <span className={"uk-margin-small-left uk-pagination-next"}></span></a></li>
                         ) : (
-                            <li><a onClick={() => this.handlerSetPage(this.props.pages)}>Final <span className={"uk-margin-small-left uk-pagination-next"}></span></a></li>
+                            <li><a onClick={() => this.handlerSetPage(this.props.pages)}>Next <span className={"uk-margin-small-left uk-pagination-next"}></span></a></li>
                         )}
                     </ul>
                 }

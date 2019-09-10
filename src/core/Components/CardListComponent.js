@@ -96,10 +96,10 @@ class CardListComponent extends Component {
                 <ul className="uk-iconnav">
                     { this.props.onSetViewPage !== undefined &&
                         this.props.viewCardClick === false &&
-                            <li><a href="#" className={'uk-icon-button'} uk-icon="icon: file-text" uk-tooltip="Ver" onClick={ () => this.handlerView(element._id) }></a></li>
+                            <li><a href="#" className={'uk-icon-button'} uk-icon="icon: file-text" uk-tooltip="View" onClick={ () => this.handlerView(element.id) }></a></li>
                     }
-                    <li><a href="#" className={'uk-icon-button'} uk-icon="icon: file-edit" uk-tooltip="Editar" onClick={ () => this.handlerEdit(element._id) }></a></li>
-                    <li><a href="#" className={'uk-icon-button'} uk-icon="icon: trash" uk-tooltip="Elimiar" uk-toggle="target: #confirm" onClick={ () => this.handlerSelectedID(element._id) }></a></li>
+                    <li><a href="#" className={'uk-icon-button'} uk-icon="icon: file-edit" uk-tooltip="Edit" onClick={ () => this.handlerEdit(element.id) }></a></li>
+                    <li><a href="#" className={'uk-icon-button'} uk-icon="icon: trash" uk-tooltip="Remove" uk-toggle="target: #confirm" onClick={ () => this.handlerSelectedID(element.id) }></a></li>
                 </ul>
             </div>
         )
@@ -113,10 +113,10 @@ class CardListComponent extends Component {
                     <ul className="uk-nav uk-dropdown-nav">
                         { this.props.onSetViewPage !== undefined &&
                             this.props.viewCardClick === false &&
-                                <li><a href="#" onClick={ () => this.handlerView(element._id) }><span className={ 'uk-icon' } uk-icon="file-text"></span> Ver</a></li>
+                                <li><a href="#" onClick={ () => this.handlerView(element.id) }><span className={ 'uk-icon' } uk-icon="file-text"></span> View</a></li>
                         }
-                        <li><a href="#" onClick={ () => this.handlerEdit(element._id) }><span className={ 'uk-icon' } uk-icon="file-edit"></span> Editar</a></li>
-                        <li><a href="#" uk-toggle="target: #confirm" onClick={ () => this.handlerSelectedID(element._id) }><span className={ 'uk-icon' } uk-icon="trash"></span> Eliminar</a></li>
+                        <li><a href="#" onClick={ () => this.handlerEdit(element.id) }><span className={ 'uk-icon' } uk-icon="file-edit"></span> Edit</a></li>
+                        <li><a href="#" uk-toggle="target: #confirm" onClick={ () => this.handlerSelectedID(element.id) }><span className={ 'uk-icon' } uk-icon="trash"></span> Remove</a></li>
                     </ul>
                 </div>
             </div>
@@ -142,7 +142,7 @@ class CardListComponent extends Component {
                                        ) : (
                                            this.showElementMenuNavActions(element)
                                        ) }
-                                       <div className={ 'uk-card uk-card-default uk-card-small uk-card-body uk-margin-bottom' } onClick={ () => this.handlerView(element._id)}>
+                                       <div className={ 'uk-card uk-card-default uk-card-small uk-card-body uk-margin-bottom' } onClick={ () => this.handlerView(element.id)}>
                                            { this.showElementTitleValue(element) }
                                            { this.showElementBodyValue(element) }
                                        </div>
@@ -162,7 +162,7 @@ class CardListComponent extends Component {
                                }
                             })
                         ) : (
-                                <h2>No hay resultados.</h2>
+                                <h2>No data to show.</h2>
                             )
                     ) }
             </div>

@@ -2,20 +2,12 @@ import HttpClient from '../../core/HttpClient/HttpClient';
 class NotesService extends HttpClient {
     constructor() {
         super();
-        this.url = '/notes'
-    }
+        this.url = '/controls'
+    }    
 
-    async GetCount(date) {
+    async GetList(page=1, params=null) {
         try {
-            return await this.Get(`${this.url}/count?date=${date}`);
-        } catch (err) {
-            return null
-        }
-    }
-
-    async GetList(date) {
-        try {
-            return await this.Get(`${this.url}?date=${date}`);
+            return await this.Get(`${this.url}?page=${page}`, params);
         } catch (err) {
             return null
         }

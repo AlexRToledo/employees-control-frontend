@@ -31,7 +31,7 @@ class UsersService extends HttpClient {
 
     async Remove(id) {
         try {
-            return await this.Delete(`${this.url}/remove`, {_id: id})
+            return await this.Delete(`${this.url}/remove`, {id: id})
         } catch (err) {
             return null;
         }

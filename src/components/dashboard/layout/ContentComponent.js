@@ -5,7 +5,8 @@ import UsersComponent from "../components/Users/UsersComponent";
 import ProtectedRoutes from "../../../core/routes/ProtectedRoutes";
 import UsersFormComponent from "../components/Users/UsersFormComponent";
 import TopMenuComponent from "../layout/TopMenuComponent";
-import CalendarComponent from "../components/Calendar/CalendarComponent";
+import ControlsComponent from "../components/Control/ControlsComponent";
+import ControlsFormComponent from "../components/Control/ControlsFormComponent";
 import ProfileComponent from "../components/Profile/ProfileComponent";
 
 
@@ -16,7 +17,9 @@ class ContentComponent extends IComponent{
                 <TopMenuComponent/>
                 <div className={'content-wrapper'}>
                     <Switch>                                            
-                        <ProtectedRoutes exact path="/dashboard/calendar" component={CalendarComponent}/>
+                        <ProtectedRoutes exact path="/dashboard/controls" component={ControlsComponent}/>
+                        <ProtectedRoutes exact path="/dashboard/controls/create" component={ControlsFormComponent}/>
+                        <ProtectedRoutes exact path="/dashboard/controls/edit/:id" component={ControlsFormComponent}/> 
                         <ProtectedRoutes exact path="/dashboard/users" component={UsersComponent}/>
                         <ProtectedRoutes exact path="/dashboard/users/create" component={UsersFormComponent}/>
                         <ProtectedRoutes exact path="/dashboard/users/edit/:id" component={UsersFormComponent}/>                        
