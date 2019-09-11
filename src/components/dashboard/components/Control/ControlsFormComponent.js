@@ -27,25 +27,18 @@ class ControlsFormComponent extends IComponent{
     async componentDidMount() {
         try {
             const { match: {params} } = this.props;
-
+                
             if(params.id) {
                 const res = await this.service.GetData(params.id);
                 if(res && !res.error) {
                     this.setState({
-                        username: res.data.user.username,
-                        email: res.data.user.email,                        
+                        day: new Date(res.data.control.day),
+                        users_id: res.data.control.users_id,                        
+                        arrivals: this.parseTime(res.data.control.day, res.data.control.arrivals),                        
+                        departures: this.parseTime(res.data.control.day, res.data.control.departures),                
                         formType: 'edit',
                         id: params.id
-                    });
-                    if (res.data.user.isadmin === true) {
-                        this.setState({
-                            isAdmin: true
-                        });
-                    } else {
-                        this.setState({
-                            isAdmin: false
-                        });
-                    }
+                    });                    
                 } else {
                     this.notify(res.message)
                 }
@@ -58,28 +51,39 @@ class ControlsFormComponent extends IComponent{
                 this.notify(res.message)
             }
         } catch (err) {
+            console.log(err)
             this.notify('Ha ocurrido un error.')
         }
     }
 
     handlerChangeDay(date) {        
         this.setState({
-            day: date
+            day: new Date(date)
         });
     }
 
-    handlerChangeTimeArrival(date) {
-        console.log(date)
+    handlerChangeTimeArrival(date) {    
         this.setState({
-            arrivals: date
+            arrivals: new Date(date)
         });
     }
 
-    handlerChangeTimeDeparture(date) {
-        console.log(date)
+    handlerChangeTimeDeparture(date) {    
         this.setState({
-            departures: date
+            departures: new Date(date)
         });
+    }
+
+    parseTime(day, time) {
+        var date = new Date(day);
+ 
+        var strs = time.split(":");
+        
+        date.setHours(strs[0]);
+        date.setMinutes(strs[1]);
+        date.setSeconds(strs[2]);
+
+        return date;
     }
 
     handlerSetFields() {
@@ -94,13 +98,25 @@ class ControlsFormComponent extends IComponent{
                     <div className="uk-form-controls">
                         <select className="uk-select" id="form-stacked-select" name={'users_id'} value={this.state.users_id} onChange={this.handleFields.bind(this)} required>
                             <option value={''} disabled={true}>Select</option>
-                            {
+                            { this.state.formType === 'create' ? (
                                 this.state.users.map((user, key)=> {
                                     return (
                                         <option key={key} value={user.id}>{user.email}</option>
                                     )
                                 })
-                            }                        
+                            ) : (
+                                this.state.users.map((user, key)=> {
+                                    if(user.id === this.state.users_id) {
+                                        return (
+                                            <option key={key} value={user.id} defaultValue>{user.email}</option>
+                                        )
+                                    } else {
+                                        return (
+                                            <option key={key} value={user.id}>{user.email}</option>
+                                        )
+                                    }
+                                })
+                            )}                        
                         </select>
                     </div>
                 </div>                
@@ -108,7 +124,7 @@ class ControlsFormComponent extends IComponent{
                     <div className="uk-width-1-2@s">
                         <label className="uk-form-label" htmlFor="form-stacked-text">Arrival</label>
                         <DatePicker
-                            selected={this.state.day}
+                            selected={this.state.arrivals}
                             onChange={this.handlerChangeTimeArrival.bind(this)}
                             showTimeSelect
                             showTimeSelectOnly
@@ -120,7 +136,7 @@ class ControlsFormComponent extends IComponent{
                     <div className="uk-width-1-2@s">
                         <label className="uk-form-label" htmlFor="form-stacked-text">Departure</label>
                         <DatePicker
-                            selected={this.state.day}
+                            selected={this.state.departures}
                             onChange={this.handlerChangeTimeDeparture.bind(this)}
                             showTimeSelect
                             showTimeSelectOnly
@@ -142,7 +158,7 @@ class ControlsFormComponent extends IComponent{
                 </div>
             </div>
         )
-    }
+    }    
 
     async onSubmit(e) {
         try {
@@ -152,8 +168,8 @@ class ControlsFormComponent extends IComponent{
                 let record = {
                     day: this.state.day,
                     users_id: this.state.users_id,
-                    arrivals: this.state.arrivals,                    
-                    departures: this.state.departures,                    
+                    arrivals: this.state.arrivals.toTimeString().split(' ')[0],                    
+                    departures: this.state.departures.toTimeString().split(' ')[0],                    
                 };
                 if(this.state.formType === 'create') {                   
                     res = await this.service.Create(record);

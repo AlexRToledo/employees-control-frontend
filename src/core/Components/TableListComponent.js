@@ -72,8 +72,12 @@ class TableListComponent extends Component{
                     {this.props.onSetViewPage !== undefined &&
                         <li key={1}><a href="#" className={'uk-icon-button'} uk-icon="icon: file-text" uk-tooltip="Ver" onClick={() => this.handlerView(element.id)}></a></li>
                     }
-                    <li key={2}><a href="#" className={'uk-icon-button'} uk-icon="icon: file-edit" uk-tooltip="Editar" onClick={() => this.handlerEdit(element.id)}></a></li>
-                    <li key={3}><a href="#" className={'uk-icon-button'} uk-icon="icon: trash" uk-tooltip="Elimiar" onClick={() => this.handlerRemove(element.id)}></a></li>
+                    {this.props.onSetEditPage !== undefined &&
+                        <li key={2}><a href="#" className={'uk-icon-button'} uk-icon="icon: file-edit" uk-tooltip="Editar" onClick={() => this.handlerEdit(element.id)}></a></li>
+                    }
+                    {this.props.onRemove !== undefined &&
+                        <li key={3}><a href="#" className={'uk-icon-button'} uk-icon="icon: trash" uk-tooltip="Elimiar" onClick={() => this.handlerRemove(element.id)}></a></li>
+                    }
                 </ul>
             </div>
         )
@@ -88,8 +92,12 @@ class TableListComponent extends Component{
                         {this.props.onSetViewPage !== undefined &&
                             <li><a href="#" onClick={() => this.handlerView(element.id)}><span className={'uk-icon'} uk-icon="file-text"></span> View</a></li>
                         }
-                        <li><a href="#" onClick={() => this.handlerEdit(element.id)}><span className={'uk-icon'} uk-icon="file-edit"></span> Edit</a></li>
-                        <li><a href="#" onClick={() => this.handlerRemove(element.id)}><span className={'uk-icon'} uk-icon="trash"></span> Remove</a></li>
+                        {this.props.onSetEditPage !== undefined &&
+                            <li><a href="#" onClick={() => this.handlerEdit(element.id)}><span className={'uk-icon'} uk-icon="file-edit"></span> Edit</a></li>
+                        }
+                        {this.props.onRemove !== undefined &&
+                            <li><a href="#" onClick={() => this.handlerRemove(element.id)}><span className={'uk-icon'} uk-icon="trash"></span> Remove</a></li>
+                        }                                            
                     </ul>
                 </div>
             </div>

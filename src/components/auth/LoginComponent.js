@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { LOGIN } from '../../store/actions/user.actions';
+import { loginAction } from '../../store/ducks/auth';
 
 import AuthService from '../../services/auth/AuthService';
 import Storage from '../../helpers/Storage';
@@ -30,7 +30,7 @@ class LoginComponent extends IComponent {
                 const res = await this.service.Login({email: this.state.email, password: this.state.password});
                 if(res && !res.error) {                    
                     const { dispatch } = this.props;
-                    dispatch(LOGIN({
+                    dispatch(loginAction({
                         token: res.data.token,
                         user: res.data.user,
                     }));

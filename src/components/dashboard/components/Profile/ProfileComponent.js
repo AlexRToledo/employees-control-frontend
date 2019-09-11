@@ -20,8 +20,9 @@ class ProfileComponent extends IComponent {
             <div id={'profile'}>
                 <h1 className={'title'}>Profile</h1>
                 <div className={'uk-grid'}>
-                    <div className={'uk-width-1-1@m uk-margin-bottom'}>                    
-                        <h2>{this.props.user.email}</h2>                                
+                    <div className={'uk-width-1-1@m uk-margin-bottom'}>                 
+                        <h2>{this.props.user.username}</h2>      
+                        <h4>{this.props.user.email}</h4>                                                                                     
                     </div>                                                    
                 </div>
             </div>

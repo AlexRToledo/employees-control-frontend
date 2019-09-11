@@ -13,7 +13,7 @@ class UsersComponent extends IComponent{
         this.state = {
             data: [],
             keys: [
-                {field: 'email', label: 'Email'}                
+                {field: 'email', label: 'Email', searchable: true}                
             ],
             title: [
                 {field: 'username', label: 'Username'},
@@ -98,7 +98,7 @@ class UsersComponent extends IComponent{
                         <div className={'uk-width-1-5@m side-actions'}>
                             <AddButton title={'New'} link={'/dashboard/users/create'}/>
                             <hr/>
-                            <SearchFormComponent keys={this.state.keys} setSearch={this.handlerSearch}></SearchFormComponent>
+                            {/* <SearchFormComponent keys={this.state.keys} setSearch={this.handlerSearch}></SearchFormComponent> */}
                         </div>
                     </div>
                 </div>

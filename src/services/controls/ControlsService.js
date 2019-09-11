@@ -7,6 +7,7 @@ class NotesService extends HttpClient {
 
     async GetList(page=1, params=null) {
         try {
+            console.log(params)
             return await this.Get(`${this.url}?page=${page}`, params);
         } catch (err) {
             return null
@@ -31,7 +32,15 @@ class NotesService extends HttpClient {
 
     async Remove(id) {
         try {
-            return await this.Delete(`${this.url}/remove`, {_id: id})
+            return await this.Delete(`${this.url}/remove`, {id: id})
+        } catch (err) {
+            return null;
+        }
+    }
+
+    async GetData(id) {
+        try {
+            return await this.Get(`${this.url}/${id}`)
         } catch (err) {
             return null;
         }

@@ -23,20 +23,22 @@ class SearchFormComponent extends IComponent {
                 </p>
                 <div className={'uk-margin-bottom'}>
                     {this.props.keys.map((ele, key) => {
-                        return  <div key={key} className="uk-margin">
-                            {ele.options ? (
-                                <select className="uk-select" name={ele.field} onChange={this.handleFields.bind(this)}>
-                                    <option value={''} disabled={true} selected={true}>Select</option>
-                                    {Object.keys(ele.options).map((key, i) =>
-                                        <option key={i} value={key}>{ele.options[key]} </option>
-                                    )}
-                                </select>
-                            ):(
-                                <div className="uk-form-controls">
-                                    <input className="uk-input uk-form-width-medium uk-form-small" id="form-stacked-text" type="text" name={ele.field} placeholder={ele.label} onChange={this.handleFields.bind(this)} required/>
-                                </div>
-                            )}
-                        </div>
+                        if(ele.searchable) {
+                            return  <div key={key} className="uk-margin">
+                                {ele.options ? (
+                                    <select className="uk-select" name={ele.field} onChange={this.handleFields.bind(this)}>
+                                        <option value={''} disabled={true} selected={true}>Select</option>
+                                        {Object.keys(ele.options).map((key, i) =>
+                                            <option key={i} value={key}>{ele.options[key]} </option>
+                                        )}
+                                    </select>
+                                ):(
+                                    <div className="uk-form-controls">
+                                        <input className="uk-input uk-form-width-medium uk-form-small" id="form-stacked-text" type="text" name={ele.field} placeholder={ele.label} onChange={this.handleFields.bind(this)} required/>
+                                    </div>
+                                )}
+                            </div>
+                        }
                     })}
                 </div>
                 <ul className={'uk-iconnav'}>

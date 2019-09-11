@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import { LOGOUT } from '../../../store/actions/user.actions';
+import { logoutAction } from '../../../store/ducks/auth';
 
 import IComponent from '../../../core/IComponent/IComponent'
 import Storage from '../../../helpers/Storage';
@@ -14,7 +14,7 @@ class TopMenuComponent extends IComponent{
 
     handleLogout() {
         const { dispatch } = this.props;
-        dispatch(LOGOUT({}));    
+        dispatch(logoutAction({}));    
     }
 
     render() {

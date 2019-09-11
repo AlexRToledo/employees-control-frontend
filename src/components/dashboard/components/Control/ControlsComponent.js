@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import ControlsService from '../../../../services/controls/ControlsService';
 import PaginationComponent from "../../../../core/Components/PaginationComponent";
 import TableListComponent from "../../../../core/Components/TableListComponent";
@@ -14,9 +15,9 @@ class ControlsComponent extends IComponent{
             data: [],
             users: [],
             keys: [                                                            
-                {field: 'day', label: 'Date'},
+                {field: 'day', label: 'Date', date: true, searchable: true},
                 {field: 'arrivals', label: 'Arrival'},                                               
-                {field: 'departures', label: 'Departures'},                                               
+                {field: 'departures', label: 'Departure'},                                               
             ],            
             params: null
         };
@@ -28,8 +29,8 @@ class ControlsComponent extends IComponent{
     }
 
     async componentDidMount() {        
-        try {
-            const res = await this.service.GetList();
+        try {                                   
+            const res = await this.service.GetList(0, this.props.user.perm == 'isuser' ? {email: this.props.user.email} : {});
             if(res && !res.error) {            
                 this.setState({data: res.data});
             } else {
@@ -75,6 +76,9 @@ class ControlsComponent extends IComponent{
 
     async handlerSearch(params) {
         try {
+            if(this.props.user.perm === 'isuser') {
+                params.email = this.props.user.email
+            }
             await this.setState({params: params});
             await this.changePageLoadData();
         } catch (err) {
@@ -90,13 +94,22 @@ class ControlsComponent extends IComponent{
                     <div className={"uk-grid"} >
                         <div className={'uk-width-4-5@m'}>
                             <PaginationComponent total={this.state.data.total} page={this.state.data.page} pages={ Math.ceil(this.state.data.total / this.state.data.limit)} setPage={this.changePageLoadData}/>
-                            <TableListComponent data={this.state.data.controls} data_keys={this.state.keys} data_title={this.state.title} width={'uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s '} card_menu={'nav'} onRemove={this.handlerRemove} onSetEditPage={this.handlerSetEditPage}/>
+                            { this.props.user.perm !== "isuser" ? (
+                                    <TableListComponent data={this.state.data.controls} data_keys={this.state.keys} data_title={this.state.title} width={'uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s '} card_menu={'nav'} onRemove={this.handlerRemove} onSetEditPage={this.handlerSetEditPage}/>
+                                ) : (
+                                    <TableListComponent data={this.state.data.controls} data_keys={this.state.keys} data_title={this.state.title} width={'uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s '} card_menu={'nav'}/>
+                                )
+                            }
                             {/*<PaginationComponent total={this.state.data.total} page={this.state.data.page} pages={ Math.ceil(this.state.data.total / this.state.data.limit)} setPage={this.changePageLoadData}/>*/}
                         </div>
                         <div className={'uk-width-1-5@m side-actions'}>
-                            <AddButton title={'New'} link={'/dashboard/controls/create'}/>
-                            <hr/>
-                            <SearchFormComponent keys={this.state.keys} setSearch={this.handlerSearch}></SearchFormComponent>
+                            {this.props.user.perm !== "isuser" &&
+                                <div>
+                                    <AddButton title={'New'} link={'/dashboard/controls/create'}/>
+                                    <hr/>
+                                </div>
+                            }                            
+                            {/* <SearchFormComponent keys={this.state.keys} setSearch={this.handlerSearch}></SearchFormComponent> */}
                         </div>
                     </div>
                 </div>
@@ -105,4 +118,11 @@ class ControlsComponent extends IComponent{
     }
 }
 
-export default ControlsComponent;
+function mapStateToProps(state) {    
+    const {user} = state.auth
+    return {
+        user
+    }
+}
+
+export default connect(mapStateToProps)(ControlsComponent);

@@ -16,9 +16,25 @@ if(store.GetToken() !== "" && store.GetUser() !== "" && expire > now) {
     initialState.redirect = store.GetRedirectRoute();
 }
 
-export function auth(state = initialState, action) {
+const LOGIN_SUCCESS = 'control/auth/LOGIN_SUCCESS';
+const LOGOUT = 'control/auth/LOGOUT';
+
+export function loginAction (data) {
+  return {
+    type: LOGIN_SUCCESS, 
+    data
+  }
+};
+
+export function logoutAction () {
+  return {
+    type: LOGOUT
+  }
+};
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'LOGIN_SUCCESS':
+    case LOGIN_SUCCESS:
       store.SetUser(action.data.user);
       store.SetToken(action.data.token);
       store.SetExpire();
@@ -26,7 +42,7 @@ export function auth(state = initialState, action) {
         auth: true,
         user: action.data.user
       };      
-    case "LOGOUT":
+    case LOGOUT:
         store.Logout();
         return {
           auth: false,
