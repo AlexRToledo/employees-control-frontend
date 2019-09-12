@@ -20,7 +20,8 @@ class ControlsFormComponent extends IComponent{
             departures: new Date(),
             id: '',
             isAdmin: false,
-            formType: 'create'
+            formType: 'create',
+            button_disabled: false
         };        
     }
 
@@ -62,16 +63,34 @@ class ControlsFormComponent extends IComponent{
         });
     }
 
-    handlerChangeTimeArrival(date) {    
-        this.setState({
-            arrivals: new Date(date)
-        });
+    handlerChangeTimeArrival(date) {            
+        if(new Date(date) < new Date(this.state.departures)) {
+            this.toggleButton(false);
+            this.setState({
+                arrivals: new Date(date)
+            });
+        } else {
+            this.toggleButton(true);
+            this.notify('The arrival time cant be major than the departure time.')
+        }
     }
 
     handlerChangeTimeDeparture(date) {    
+        if(new Date(date) > new Date(this.state.arrivals)) {
+            this.toggleButton(false);
+            this.setState({
+                departures: new Date(date)
+            });
+        } else {
+            this.toggleButton(true);
+            this.notify('The departure time cant be less than the arrival time.')
+        }
+    }
+
+    toggleButton(value) {
         this.setState({
-            departures: new Date(date)
-        });
+            button_disabled: value
+        })
     }
 
     parseTime(day, time) {
@@ -147,7 +166,7 @@ class ControlsFormComponent extends IComponent{
                     </div>                                     
                 </div>                            
                 <div className={'uk-flex uk-flex-right'}>
-                    <button className={'uk-button uk-button-primary '} type='submit'>
+                    <button className={'uk-button uk-button-primary '} type='submit' disabled={this.state.button_disabled}>
                         {this.state.formType === 'create' ? (
                             <span>Create</span>
                         ) : (

@@ -139,7 +139,7 @@ class TableListComponent extends Component{
                           </table>
                       </div>
                     ) : (
-                        <h2>No hay resultados.</h2>
+                        <h2>No data to show.</h2>
                     )
                 )}
             </div>

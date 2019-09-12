@@ -33,6 +33,13 @@ class ControlsComponent extends IComponent{
             const res = await this.service.GetList(0, this.props.user.perm == 'isuser' ? {email: this.props.user.email} : {});
             if(res && !res.error) {            
                 this.setState({data: res.data});
+                if(this.props.user.perm == 'isadmin') {
+                    let aux = this.state.keys;
+                    aux.push({field: 'email', label: 'Email'})
+                    this.setState({
+                        keys: aux
+                    })
+                }
             } else {
                 this.notify(res.message)
             }

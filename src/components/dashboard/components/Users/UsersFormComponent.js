@@ -17,7 +17,8 @@ class UsersFormComponent extends IComponent{
             confirmPassword: '',
             id: '',
             isAdmin: false,
-            formType: 'create'
+            formType: 'create',
+            button_disable: false
         };
     }
 
@@ -84,7 +85,7 @@ class UsersFormComponent extends IComponent{
                     </div>
                 }
                 <div className="uk-margin">
-                    <label className="uk-form-label" htmlFor="form-stacked-text">Tipo de Usuario</label>
+                    <label className="uk-form-label" htmlFor="form-stacked-text">Role</label>
                     <div className="uk-form-controls">
                         <select className="uk-select" id="form-stacked-select" name={'isAdmin'} value={this.state.isAdmin} onChange={this.handleFields.bind(this)} required>
                             <option value={''} disabled={true}>Select</option>
@@ -112,30 +113,34 @@ class UsersFormComponent extends IComponent{
             let res;
             e.preventDefault();
             if(e.target.checkValidity()) {
-                let record = {
-                    username: this.state.username,
-                    email: this.state.email,
-                    isAdmin: this.state.isAdmin                    
-                };
-                if(this.state.formType === 'create') {
-                    record.password = this.state.password;
-                    record.passwordConfirm = this.state.passwordConfirm;
-                    res = await service.Create(record);
+                if(this.setState.password !== this.state.passwordConfirm) {
+                    this.notify('Passwords must match.')
                 } else {
-                    res = await service.Edit(this.state.id, record);
-                }
-
-                if (res && !res.error) {
-                    this.props.history.push('/dashboard/users');
-                } else {
-                    if(res.field && res.value) {
-                        ReactDOM.findDOMNode(this.refs[res.field] + '_input').addClass('uk-form-danger');
+                    let record = {
+                        username: this.state.username,
+                        email: this.state.email,
+                        isAdmin: this.state.isAdmin                    
+                    };
+                    if(this.state.formType === 'create') {
+                        record.password = this.state.password;
+                        record.passwordConfirm = this.state.passwordConfirm;
+                        res = await service.Create(record);
+                    } else {
+                        res = await service.Edit(this.state.id, record);
                     }
+    
+                    if (res && !res.error) {
+                        this.props.history.push('/dashboard/users');
+                    } else {
+                        if(res.field && res.value) {
+                            ReactDOM.findDOMNode(this.refs[res.field] + '_input').addClass('uk-form-danger');
+                        }
+                    }
+                    this.notify(res.message)
                 }
-                this.notify(res.message)
             }
         } catch (err) {
-            this.notify('Ha ocurrido un error.')
+            this.notify('An error occur.')
         }
     }
 
