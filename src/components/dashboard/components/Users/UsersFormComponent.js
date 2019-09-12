@@ -14,7 +14,7 @@ class UsersFormComponent extends IComponent{
             username: '',
             email: '',
             password: '',
-            confirmPassword: '',
+            passwordConfirm: '',
             id: '',
             isAdmin: false,
             formType: 'create',
@@ -113,7 +113,7 @@ class UsersFormComponent extends IComponent{
             let res;
             e.preventDefault();
             if(e.target.checkValidity()) {
-                if(this.setState.password !== this.state.passwordConfirm) {
+                if(this.state.password !== this.state.passwordConfirm) {
                     this.notify('Passwords must match.')
                 } else {
                     let record = {
