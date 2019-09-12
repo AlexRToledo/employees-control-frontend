@@ -1,7 +1,7 @@
 # employees-control-frontend
 Frontend for Employees Control
 
-1. Continue with
+1. Install dependecies
     ```bash 
     npm install
     ```
