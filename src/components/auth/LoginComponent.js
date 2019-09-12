@@ -64,7 +64,7 @@ class LoginComponent extends IComponent {
                             </div>
                         </div>
                         <button className={'uk-button uk-button-primary'} type='submit'>Login</button>
-                        <Link className={'uk-margin-small-left'} to="/register">Necesito una cuenta?</Link>
+                        {/* <Link className={'uk-margin-small-left'} to="/register">Necesito una cuenta?</Link> */}
                     </form>
                 </div>
             </section>

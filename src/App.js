@@ -43,7 +43,7 @@ class App extends Component {
                     <NotificationComponent typeNotify={this.state.typeNotify}/>
                     <Switch>
                         <Route path="/login" component={LoginComponent} />
-                        <PublicRoutes path="/register" component={RegisterComponent} />
+                        {/* <PublicRoutes path="/register" component={RegisterComponent} /> */}
                         <ProtectedRoutes path="/dashboard" component={DashboardComponent} />
                         <PublicRoutes path={'*'}/>
                     </Switch>

@@ -110,12 +110,13 @@ class ControlsFormComponent extends IComponent{
             <div>
                 <div className="uk-margin">
                     <label className="uk-form-label" htmlFor="form-stacked-text">Day</label>
-                    <DatePicker selected={this.state.day} onChange={this.handlerChangeDay.bind(this)} />
+                    <DatePicker selected={this.state.day} onChange={this.handlerChangeDay.bind(this)} disabled/>
                 </div>
                 <div className="uk-margin">
                     <label className="uk-form-label" htmlFor="form-stacked-text">User</label>
                     <div className="uk-form-controls">
-                        <select className="uk-select" id="form-stacked-select" name={'users_id'} value={this.state.users_id} onChange={this.handleFields.bind(this)} required>
+                        {this.state.formType === "create" ? (
+                            <select className="uk-select" id="form-stacked-select" name={'users_id'} value={this.state.users_id} onChange={this.handleFields.bind(this)} required>
                             <option value={''} disabled={true}>Select</option>
                             { this.state.formType === 'create' ? (
                                 this.state.users.map((user, key)=> {
@@ -137,6 +138,30 @@ class ControlsFormComponent extends IComponent{
                                 })
                             )}                        
                         </select>
+                        ) : (
+                            <select className="uk-select" id="form-stacked-select" name={'users_id'} value={this.state.users_id} onChange={this.handleFields.bind(this)} required disabled>
+                            <option value={''} disabled={true}>Select</option>
+                            { this.state.formType === 'create' ? (
+                                this.state.users.map((user, key)=> {
+                                    return (
+                                        <option key={key} value={user.id}>{user.email}</option>
+                                    )
+                                })
+                            ) : (
+                                this.state.users.map((user, key)=> {
+                                    if(user.id === this.state.users_id) {
+                                        return (
+                                            <option key={key} value={user.id} defaultValue>{user.email}</option>
+                                        )
+                                    } else {
+                                        return (
+                                            <option key={key} value={user.id}>{user.email}</option>
+                                        )
+                                    }
+                                })
+                            )}                        
+                        </select>
+                        )}
                     </div>
                 </div>                
                 <div className="uk-margin uk-grid">

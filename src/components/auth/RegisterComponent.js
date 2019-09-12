@@ -87,7 +87,7 @@ class RegisterComponent extends IComponent{
                         </fieldset>                        
                         <div className={'uk-margin-small-top uk-flex uk-flex-column uk-text-center'}>
                             <button className={'uk-button uk-button-primary'} type='submit'>Registrarse</button>
-                            <Link className={'uk-margin-small-left uk-padding-small'} to="/login">Ya tengo cuenta</Link>
+                            {/* <Link className={'uk-margin-small-left uk-padding-small'} to="/login">Ya tengo cuenta</Link> */}
                         </div>
                     </form>
                 </div>
